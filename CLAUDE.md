@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Status
 
-Implemented (Vite + vanilla JS + glpk.js). `README.md` is the original design spec; **the implementation has since evolved past it** — trust the code and the notes below where they disagree (notably: count-based ILP instead of per-player binaries, weighted `helps` maps instead of arrays, totem-element exclusivity, Grace of Air, `tank_paladin` role, Raid-Helper import, recruit suggestions).
+Implemented (Vite + vanilla JS + glpk.js). `README.md` is a short user-facing overview; this file and the code are the technical reference (notably: count-based ILP instead of per-player binaries, weighted `helps` maps instead of arrays, totem-element exclusivity, Grace of Air, `tank_paladin` role, Raid-Helper import, recruit suggestions).
 
 Commands: `npm run dev` / `npm run build` / `npm test` (node-based solver tests in `test/solve.test.js` — glpk.js is isomorphic; includes a brute-force optimality cross-check that must stay green after any model change).
 
@@ -34,7 +34,7 @@ All WoW-specific tuning (buff `value` weights, which specs `provide` which buffs
 
 ## The ILP Model (the hard part — READ src/model.js comments)
 
-**Count-based, not per-player.** The naive per-player binary model (README §4) explodes at 24-25 players from symmetry (interchangeable same-spec players × interchangeable parties → >60s solves). Since names are cosmetic, the model aggregates:
+**Count-based, not per-player.** The naive per-player binary model (`x[p][g]` binaries with `served[b][g][p]` linearization) explodes at 24-25 players from symmetry (interchangeable same-spec players × interchangeable parties → >60s solves). Since names are cosmetic, the model aggregates:
 
 - `n[s][g]` integer — how many players of spec `s` in party `g`.
 - `prov[b][g]` binary — buff `b` provided in party `g`.
@@ -48,7 +48,7 @@ Solver opts (worker): `tmlim: 4`, `mipgap: 0.002` — benchmarks show the true o
 
 Perf invariants (test-enforced): 24-man solve < 3s, recruit ranking < 15s.
 
-## Intended File Layout (from spec §7)
+## File Layout
 
 ```
 /src
