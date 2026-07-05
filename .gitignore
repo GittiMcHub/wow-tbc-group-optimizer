@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.idea/
+.claude/
+.DS_Store
+.idea
+.pnpm-store
+*.cpuprofile
+*.local
+*.log
+/.vscode/
+dist-ssr
+explorations
+node_modules
+temp
+.eslintcache
