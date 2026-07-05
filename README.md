@@ -1,5 +1,23 @@
 # TBC Raid Composition Optimizer
 
+**Try it:** https://gittimchub.github.io/wow-tbc-group-optimizer/
+
+## Features
+
+- **Perfect groups, every raid** — enter your roster (class + spec), get the mathematically best 5-man party setup for your 10 or 25-man. Not "pretty good" — provably the best possible.
+- **Knows TBC buffs cold** — Windfury, Totem of Wrath, Moonkin Aura, Wrath of Air, Grace of Air… everything that only works inside a party is what decides the groups.
+- **No fake buffs** — Windfury buffs your Ret paladin but not your hunters. Prot paladins count as melee-ish for holy-threat. Shamans can't drop two earth totems at once. The tool knows all of it.
+- **Totem twisting supported** — Windfury twisting is modeled correctly: it stacks on top of one other air totem, exactly like your enhancement shaman actually plays it.
+- **See what you're missing** — per-group score breakdown shows which buffs each party gets and where potential is wasted.
+- **Recruiting advice** — tells you which class/spec would boost your raid the most if you added one.
+- **Raid-Helper import** — pull your signups straight from your Discord Raid-Helper event, no retyping.
+- **Share with one link** — setup is encoded in the URL; paste it in your guild Discord and officers see the same roster.
+- **Instant, private, free** — runs entirely in your browser. No account, no server, no data leaves your machine.
+
+---
+
+> **Note:** everything below is the original design spec. The implementation has since evolved past it (count-based ILP, weighted role maps, totem twisting, Raid-Helper import, recruit suggestions) — see `CLAUDE.md` and the code where they disagree.
+
 A **fully client-side** web tool that computes the buff-optimal group layout for World of Warcraft: The Burning Crusade raids (10- and 25-man). Given a roster of players (class + spec), it assigns them to parties to maximize total raid buff coverage, using an Integer Linear Programming (ILP) solver running in the browser via WebAssembly.
 
 Faction-independent: race buffs are ignored.
